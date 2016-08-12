@@ -123,7 +123,7 @@ Public Class Generador
         End If
 
         'Guardado del XML generado y firmado en Disco
-        Dim nombreArchivo As String = String.Format("{0}-RC-{1}", resumen.Emisor.NroDocumento, resumen.IdDocumento)
+        Dim nombreArchivo As String = String.Format("{0}-{1}", resumen.Emisor.NroDocumento, resumen.IdDocumento)
 
         EscribirArchivo(String.Format("{0}.xml", nombreArchivo), responseFirma.TramaXmlFirmado)
 
@@ -132,7 +132,7 @@ Public Class Generador
             .UsuarioSol = UsuarioSol,
             .ClaveSol = ClaveSol,
             .EndPointUrl = EndPointUrl,
-            .IdDocumento = resumen.IdDocumento,
+            .IdDocumento = resumen.IdDocumento.Replace("RC-", String.Empty),
             .TipoDocumento = "RC",
             .TramaXmlFirmado = responseFirma.TramaXmlFirmado
         }
@@ -175,7 +175,7 @@ Public Class Generador
         End If
 
         'Guardado del XML generado y firmado en Disco
-        Dim nombreArchivo As String = String.Format("{0}-RA-{1}", baja.Emisor.NroDocumento, baja.IdDocumento)
+        Dim nombreArchivo As String = String.Format("{0}-{1}", baja.Emisor.NroDocumento, baja.IdDocumento)
 
         EscribirArchivo(String.Format("{0}.xml", nombreArchivo), responseFirma.TramaXmlFirmado)
 
@@ -184,7 +184,7 @@ Public Class Generador
             .UsuarioSol = UsuarioSol,
             .ClaveSol = ClaveSol,
             .EndPointUrl = EndPointUrl,
-            .IdDocumento = baja.IdDocumento,
+            .IdDocumento = baja.IdDocumento.Replace("RA-", String.Empty),
             .TipoDocumento = "RA",
             .TramaXmlFirmado = responseFirma.TramaXmlFirmado
         }

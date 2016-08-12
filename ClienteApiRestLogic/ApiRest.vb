@@ -1,5 +1,4 @@
 ﻿Imports System.Configuration
-Imports System.Globalization
 Imports System.Net
 Imports System.Text
 Imports Newtonsoft.Json
@@ -16,17 +15,7 @@ Public Class ApiRest
             restProxy.Headers("Content-Type") = "application/json"
             restProxy.Encoding = New UTF8Encoding()
 
-            Dim config = New JsonSerializerSettings()
-            With config
-                .Culture = New CultureInfo("es-ES")
-                .NullValueHandling = NullValueHandling.Ignore
-                .DateFormatHandling = DateFormatHandling.MicrosoftDateFormat
-                .ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
-                .FloatFormatHandling = FloatFormatHandling.String
-                .FloatParseHandling = FloatParseHandling.Decimal
-            End With
-
-            Dim requestString = JsonConvert.SerializeObject(data, config)
+            Dim requestString = JsonConvert.SerializeObject(data)
 
             Dim responseString = restProxy.UploadString(url, "POST", requestString)
 

@@ -90,9 +90,47 @@ Module Program
                 Console.WriteLine(respuesta.MensajeError)
             End If
 
-            Console.WriteLine("Respuesta de SUNAT:" & respuesta.TramaXmlFirmado)
-            Console.WriteLine("Codigo Hash:" & respuesta.ValorFirma)
+            'Console.WriteLine("Respuesta de SUNAT:" & respuesta.TramaXmlFirmado)
+            'Console.WriteLine("Codigo Hash:" & respuesta.ValorFirma)
             Console.WriteLine("Resumen de Firma:" & respuesta.ResumenFirma)
+
+            Console.ReadLine()
+            Console.WriteLine("Generación de un Resumen Diario de Boletas")
+            Dim resumenDiario As New ResumenDiario()
+            With resumenDiario
+                .IdDocumento = String.Format("RC-{0}-1", Date.Today.ToString("yyyyMMdd"))
+                .Emisor = emisor
+                .FechaEmision = Date.Today.ToString("yyyy-MM-dd")
+                .FechaReferencia = .FechaEmision
+            End With
+            Dim grupoResumen As New GrupoResumen
+            With grupoResumen
+                .Id = 1
+                .TipoDocumento = "03"
+                .Serie = "BB14"
+                .Moneda = "PEN"
+                .CorrelativoInicio = 10
+                .CorrelativoFin = 500
+                .TotalVenta = 5000
+                .Gravadas = 0
+                .Inafectas = 5000
+                .TotalIgv = 0
+                .TotalIsc = 0
+                .TotalDescuentos = 0
+                .Exoneradas = 0
+                .Exportacion = 0
+                .TotalOtrosImpuestos = 0
+            End With
+            resumenDiario.Resumenes = New List(Of GrupoResumen)
+            resumenDiario.Resumenes.Add(grupoResumen)
+
+            Dim respuestaResumen As EnviarResumenResponse = generador.GenerarResumenDiario(resumenDiario)
+
+            If Not respuestaResumen.Exito Then
+                Console.WriteLine(respuestaResumen.MensajeError)
+            End If
+
+            Console.WriteLine("Nro. Ticket para el Resumen: " & respuestaResumen.NroTicket)
 
         Catch ex As Exception
             Console.WriteLine(ex.Message)
