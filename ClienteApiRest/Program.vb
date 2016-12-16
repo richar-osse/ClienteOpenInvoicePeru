@@ -27,7 +27,7 @@ Module Program
             Dim receptor As New Contribuyente()
             With receptor
                 .NroDocumento = "20100039207"
-                .TipoDocumento = "6"
+                .TipoDocumento = "6" 'RUC Catálogo No. 06
                 .NombreLegal = "RANSA COMERCIAL S.A."
                 .NombreComercial = String.Empty
                 .Direccion = String.Empty
@@ -43,16 +43,19 @@ Module Program
                 .Emisor = emisor
                 .Receptor = receptor
                 .IdDocumento = "FF11-002"
-                .FechaEmision = Date.Today.AddDays(-5).ToString("yyyy-MM-dd")
+                .FechaEmision = Date.Today.ToString("yyyy-MM-dd")
                 .Moneda = "PEN"
                 .MontoEnLetras = "SON CIENTO DIECIOCHO SOLES CON 0/100"
                 .CalculoIgv = 0.18D
                 .CalculoIsc = 0.1D
                 .CalculoDetraccion = 0.04D
-                .TipoDocumento = "01" 'Factura
-                .TotalIgv = 18
-                .TotalVenta = 118
-                .Gravadas = 100
+                .TipoDocumento = "01" 'Factura Catálogo No. 01
+                .TotalIgv = 0
+                .TotalVenta = 100
+                .Gravadas = 0
+                .Inafectas = 0
+                .Exoneradas = 100
+                .Gratuitas = 0
             End With
 
             Dim detalle1 As New DetalleDocumento()
@@ -62,11 +65,11 @@ Module Program
                 .PrecioReferencial = 20
                 .PrecioUnitario = 20
                 .TipoPrecio = "01" 'Catálogo No. 16
-                .CodigoItem = "1234234"
+                .CodigoItem = "1234234" 'Codigo de Producto Interno.
                 .Descripcion = "Arroz Costeño"
                 .UnidadMedida = "KG" 'CATALOGO No. 03
-                .Impuesto = 18
-                .TipoImpuesto = "10" 'Catálogo No. 07
+                .Impuesto = 0
+                .TipoImpuesto = "20" 'Catálogo No. 07
                 .TotalVenta = 100
                 .Suma = 100
             End With
@@ -90,8 +93,8 @@ Module Program
                 Console.WriteLine(respuesta.MensajeError)
             End If
 
-            'Console.WriteLine("Respuesta de SUNAT:" & respuesta.TramaXmlFirmado)
-            'Console.WriteLine("Codigo Hash:" & respuesta.ValorFirma)
+            Console.WriteLine("Respuesta de SUNAT:" & respuesta.TramaXmlFirmado)
+            Console.WriteLine("Codigo Hash:" & respuesta.ValorFirma)
             Console.WriteLine("Resumen de Firma:" & respuesta.ResumenFirma)
 
             Console.ReadLine()

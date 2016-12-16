@@ -132,7 +132,7 @@ Public Class Generador
             .UsuarioSol = UsuarioSol,
             .ClaveSol = ClaveSol,
             .EndPointUrl = EndPointUrl,
-            .IdDocumento = resumen.IdDocumento.Replace("RC-", String.Empty),
+            .IdDocumento = resumen.IdDocumento,
             .TipoDocumento = "RC",
             .TramaXmlFirmado = responseFirma.TramaXmlFirmado
         }
